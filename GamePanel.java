@@ -1,39 +1,63 @@
 package cockieClicker;
 
-import org.w3c.dom.css.Counter;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.TimerTask;
 
-public class GamePanel extends JPanel implements MouseListener, ActionListener {
+public class GamePanel extends JPanel{
 
     public cockieClicker.Renderer renderer;
-    JButton bScore = new JButton("Click me!!");
-    JButton button;
+    static int Money = 0;
+    public double clicker = 1;
+    private int BUTTON_POSX = 160, BUTTON_POSY = 300;
 
-    public int Money = 0;
-    public double cost;
+    JButton increaseClicker;
 
     //Upgrades
-    private String name;
-    private int levels;
-    private int productionRate;
-    private int costs;
+    Upgrades granies;
+    boolean graniesUnlocked;
 
 
-    public GamePanel(){
+    public GamePanel() {
         renderer = new Renderer();
+        granies = new Upgrades("Granies", 0, 1, 20);
+        graniesUnlocked = false;
+
+        increaseClicker = new JButton("Increase Cookies");
+        increaseClicker.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Money += clicker;
+            }
+        });
+
+        java.util.Timer getMoreUpgrades = new java.util.Timer();
+        getMoreUpgrades.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (graniesUnlocked == false && Money >=2){
+                    granies.unlock();
+                    graniesUnlocked = true;
+                }
+            }
+        },0,2000);
+        java.util.Timer produceWithUpgrades = new java.util.Timer();
+        produceWithUpgrades.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Money += granies.getProductionRate();
+            }
+        },0,1000);
 
         add(renderer);
-        setSize(400,700);
+        add(granies);
+        add(increaseClicker);
+        setSize(400, 700);
         setVisible(true);
-        add(bScore);
-        bScore.addActionListener(this::actionPerformed);
-
 
     }
 
@@ -42,74 +66,24 @@ public class GamePanel extends JPanel implements MouseListener, ActionListener {
         super.paintComponent(g);
 
         //set font and color
-        g.setFont(new Font("Arial", 1,50));
+        g.setFont(new Font("Arial", 1, 50));
         g.setColor(Color.BLACK);
 
         //draw Cookie
         Graphics2D cookie = (Graphics2D) g;
         cookie.setColor(Color.RED);
-        cookie.fillOval(160,90,80,80);
+        cookie.fillOval(160, 90, 80, 80);
 
         //draw Score
         g.drawString(String.valueOf(Money), 160, 230);
 
         //Buttons
-        bScore.setBounds(160, 300, 200, 50);
+        increaseClicker.setBounds(BUTTON_POSX, BUTTON_POSY, 200, 50);
+        granies.setBounds(BUTTON_POSX, BUTTON_POSY + 50, 200, 50);
 
     }
 
-    @Override
-    public  void actionPerformed(ActionEvent e) {
-        if (e.getSource()==bScore){
-            Money++;
-        }
-        if (e.getSource()==button){
-            improve();
-        }
-
-
+    public static void setMoney(int money) {
+        Money = money;
     }
-
-    public void Upgrades(String name, int levels, int productionRate, int costs){
-        this.name = name;
-        this.levels = levels;
-        this.productionRate = productionRate;
-        this.costs = costs;
-
-        button = new JButton();
-        button.addActionListener(this::actionPerformed);
-
-}
-
-    public void improve(){
-
-    }
-
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-
 }

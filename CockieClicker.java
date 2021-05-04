@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CockieClicker extends JFrame implements ActionListener {
+public class CockieClicker extends JFrame {
 
     GamePanel game;
     Timer gameTimer;
@@ -16,7 +16,12 @@ public class CockieClicker extends JFrame implements ActionListener {
 
     public CockieClicker(){
         super("CockieClicker");
-        gameTimer = new Timer(DELAY, this);
+        gameTimer = new Timer(DELAY, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
         game = new GamePanel();
         renderer = new Renderer();
 
@@ -33,9 +38,5 @@ public class CockieClicker extends JFrame implements ActionListener {
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 }
 
