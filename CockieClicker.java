@@ -1,7 +1,6 @@
-package cockieClicker;
+package cookieClickerTest;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,9 +9,9 @@ public class CockieClicker extends JFrame {
     GamePanel game;
     Timer gameTimer;
 
-    public static cockieClicker.CockieClicker cockieClicker;
+    public static CockieClicker cockieClicker;
     public static final int WIDTH = 400, HEIGHT = 700, DELAY = 12;
-    public cockieClicker.Renderer renderer;
+    public Renderer renderer;
 
     public CockieClicker(){
         super("CockieClicker");
@@ -27,7 +26,7 @@ public class CockieClicker extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH,HEIGHT);
-        setResizable(false);
+        setResizable(true);
         setVisible(true);
 
         //Add Panel to Frame
@@ -35,10 +34,9 @@ public class CockieClicker extends JFrame {
 
         //Game timer
         gameTimer.start();
-
     }
-
 }
+//Main class
 class main {
     public static void main (String[] args) {
         CockieClicker.cockieClicker = new CockieClicker();

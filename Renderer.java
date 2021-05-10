@@ -1,7 +1,7 @@
-package cockieClicker;
+package cookieClickerTest;
 
-import java.awt.Graphics;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class Renderer extends JPanel
 {

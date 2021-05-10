@@ -1,4 +1,4 @@
-package cockieClicker;
+package cookieClickerTest;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -6,15 +6,15 @@ import java.awt.event.ActionListener;
 
 public class Upgrades extends JPanel {
     private String name;
-    private int levels;
-    private int productionRate;
+    private double levels;
+    private double productionRate;
     private int costs;
     GamePanel gamePanel;
 
     JLabel label;
     JButton button;
 
-    public Upgrades(String name, int levels, int productionRate, int costs){
+    public Upgrades(String name, double levels, double productionRate, int costs){
         this.name = name;
         this.levels = levels;
         this.productionRate = productionRate;
@@ -30,10 +30,6 @@ public class Upgrades extends JPanel {
         });
     }
 
-    public int getLevels() {
-        return levels;
-    }
-
     public void improve(){
         if(gamePanel.Money >= costs) {
             levels++;
@@ -45,8 +41,8 @@ public class Upgrades extends JPanel {
             }
             actualize();
         }
-    public int getProductionRate(){
-        return productionRate * levels;
+    public double getProductionRate(){
+        return (productionRate * levels);
     }
 
     public void actualize(){

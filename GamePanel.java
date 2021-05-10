@@ -1,19 +1,17 @@
-package cockieClicker;
+package cookieClickerTest;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.TimerTask;
 
 public class GamePanel extends JPanel{
 
-    public cockieClicker.Renderer renderer;
-    static int Money = 0;
+    public Renderer renderer;
+    static double Money = 0;
     public double clicker = 1;
-    private int BUTTON_POSX = 110, BUTTON_POSY = 300;
+    private int BUTTON_POSX = 100, BUTTON_POSY = 300;
 
     JButton increaseClicker;
 
@@ -21,11 +19,20 @@ public class GamePanel extends JPanel{
     Upgrades granies;
     boolean graniesUnlocked;
 
+    Upgrades factory;
+    boolean factoryUnlocked;
+
 
     public GamePanel() {
         renderer = new Renderer();
-        granies = new Upgrades("Granies", 0, 1, 20);
+        setSize(400, 700);
+        setVisible(true);
+
+        granies = new Upgrades("Granies", 0, 0.5, 20);
         graniesUnlocked = false;
+
+        factory = new Upgrades("Factory", 0, 2.5,50);
+        factoryUnlocked = false;
 
         increaseClicker = new JButton("Increase Cookies");
         increaseClicker.addActionListener(new ActionListener() {
@@ -35,14 +42,17 @@ public class GamePanel extends JPanel{
             }
         });
 
-
         java.util.Timer getMoreUpgrades = new java.util.Timer();
         getMoreUpgrades.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (graniesUnlocked == false && Money >=2){
+                if (graniesUnlocked == false && Money >=10){
                     granies.unlock();
                     graniesUnlocked = true;
+                }
+                if (factoryUnlocked == false && Money >=20){
+                    factory.unlock();
+                    factoryUnlocked = true;
                 }
             }
         },0,2000);
@@ -51,14 +61,17 @@ public class GamePanel extends JPanel{
             @Override
             public void run() {
                 Money += granies.getProductionRate();
+                Money += factory.getProductionRate();
             }
         },0,1000);
 
         add(renderer);
-        add(granies);
         add(increaseClicker);
-        setSize(400, 700);
-        setVisible(true);
+
+        //Upgrades
+        add(granies);
+        add(factory);
+
 
     }
 
@@ -73,14 +86,15 @@ public class GamePanel extends JPanel{
         //draw Cookie
         Graphics2D cookie = (Graphics2D) g;
         cookie.setColor(Color.RED);
-        cookie.fillOval(160, 90, 100, 100);
+        cookie.fillOval(160, 90, 80, 80);
 
-        //draw Money
-        g.drawString("Cookies " + Money, 100, 250);
+        //draw Score
+        g.drawString(String.valueOf(Money), 160, 230);
 
         //Buttons
         increaseClicker.setBounds(BUTTON_POSX, BUTTON_POSY, 200, 50);
         granies.setBounds(BUTTON_POSX, BUTTON_POSY + 50, 200, 50);
+        factory.setBounds(BUTTON_POSX, BUTTON_POSY + 100, 200, 50);
 
     }
 }
