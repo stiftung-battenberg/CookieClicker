@@ -13,7 +13,7 @@ public class GamePanel extends JPanel{
     public cockieClicker.Renderer renderer;
     static int Money = 0;
     public double clicker = 1;
-    private int BUTTON_POSX = 160, BUTTON_POSY = 300;
+    private int BUTTON_POSX = 110, BUTTON_POSY = 300;
 
     JButton increaseClicker;
 
@@ -34,6 +34,7 @@ public class GamePanel extends JPanel{
                 Money += clicker;
             }
         });
+
 
         java.util.Timer getMoreUpgrades = new java.util.Timer();
         getMoreUpgrades.scheduleAtFixedRate(new TimerTask() {
@@ -72,18 +73,14 @@ public class GamePanel extends JPanel{
         //draw Cookie
         Graphics2D cookie = (Graphics2D) g;
         cookie.setColor(Color.RED);
-        cookie.fillOval(160, 90, 80, 80);
+        cookie.fillOval(160, 90, 100, 100);
 
-        //draw Score
-        g.drawString(String.valueOf(Money), 160, 230);
+        //draw Money
+        g.drawString("Cookies " + Money, 100, 250);
 
         //Buttons
         increaseClicker.setBounds(BUTTON_POSX, BUTTON_POSY, 200, 50);
         granies.setBounds(BUTTON_POSX, BUTTON_POSY + 50, 200, 50);
 
-    }
-
-    public static void setMoney(int money) {
-        Money = money;
     }
 }

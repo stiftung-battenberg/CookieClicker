@@ -39,4 +39,9 @@ public class CockieClicker extends JFrame {
     }
 
 }
+class main {
+    public static void main (String[] args) {
+        CockieClicker.cockieClicker = new CockieClicker();
+    }
+}
 

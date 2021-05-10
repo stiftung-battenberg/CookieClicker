@@ -9,7 +9,6 @@ public class Upgrades extends JPanel {
     private int levels;
     private int productionRate;
     private int costs;
-    static int Money;
     GamePanel gamePanel;
 
     JLabel label;
