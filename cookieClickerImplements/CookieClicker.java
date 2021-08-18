@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Fachliche Klasse
 public class CookieClicker extends JFrame {
 
     GamePanel game;
@@ -18,7 +19,6 @@ public class CookieClicker extends JFrame {
         gameTimer = new Timer(DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
             }
         });
         game = new GamePanel();
@@ -28,17 +28,15 @@ public class CookieClicker extends JFrame {
         setSize(WIDTH,HEIGHT);
         setResizable(false);
         setVisible(true);
-
         //Add Panel to Frame
         add(game);
-
         //Game timer
         gameTimer.start();
-
     }
 
 }
 
+//Fachliche Klasse
 class main {
     public static void main (String[] args) {
         CookieClicker.cookieClicker = new CookieClicker();

@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Technische Klasse
 public class Factory extends JPanel implements Upgrade{
-    private String name;
+    protected String name;
     private int levels;
-    private int productionRate;
+    protected int productionRate;
     public int costs;
-    GamePanel gamePanel;
 
     JLabel label;
     JButton button;
@@ -22,7 +22,6 @@ public class Factory extends JPanel implements Upgrade{
 
         label = new JLabel();
         button = new JButton();
-        button.setEnabled(false);
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -30,11 +29,12 @@ public class Factory extends JPanel implements Upgrade{
             }
         });
     }
+
     @Override
     public void improve() {
-        if(gamePanel.Money >= costs) {
+        if(GamePanel.Money >= costs) {
             levels++;
-            gamePanel.Money -= costs;
+            GamePanel.Money -= costs;
             costs *= 2;
             JOptionPane.showMessageDialog(null, "You have improved the " + name + "!");
         } else {
@@ -43,15 +43,18 @@ public class Factory extends JPanel implements Upgrade{
         actualize();
 
     }
+
     @Override
     public int getProductionRate() {
         return productionRate * levels;
     }
+
     @Override
     public void actualize() {
         label.setText(name + "Prod. Rate: " + getProductionRate());
         button.setText("Improve " + name + "(costs:" + costs + ")");
     }
+
     @Override
     public void unlock() {
         add(button);

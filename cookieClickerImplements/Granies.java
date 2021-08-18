@@ -4,12 +4,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+//Fachliche Klasse
 public class Granies extends JPanel implements Upgrade{
-    private String name;
+    protected String name;
     private int levels;
-    private int productionRate;
+    protected int productionRate;
     public int costs;
-    GamePanel gamePanel;
 
     JLabel label;
     JButton button;
@@ -29,11 +30,12 @@ public class Granies extends JPanel implements Upgrade{
             }
         });
     }
+
     @Override
     public void improve() {
-        if(gamePanel.Money >= costs) {
+        if(GamePanel.Money >= costs) {
             levels++;
-            gamePanel.Money -= costs;
+            GamePanel.Money -= costs;
             costs *= 2;
             JOptionPane.showMessageDialog(null, "You have improved the " + name + "!");
         } else {
@@ -42,11 +44,13 @@ public class Granies extends JPanel implements Upgrade{
         actualize();
 
     }
+
     @Override
     public int getProductionRate() {
         return productionRate * levels;
 
     }
+
     @Override
     public void actualize() {
         label.setText(name + "Prod. Rate: " + getProductionRate());
@@ -58,5 +62,16 @@ public class Granies extends JPanel implements Upgrade{
         add(button);
         actualize();
     }
+}
 
+class GraniesStub extends Granies {
+
+    public GraniesStub(String name, int levels, int productionRate, int costs) {
+        super(name, levels, productionRate, costs);
+        productionRate = getProductionRate();
+    }
+    @Override
+    public int getProductionRate() {
+        return 5;
+    }
 }
